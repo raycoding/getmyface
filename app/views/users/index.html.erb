@@ -1,0 +1,23 @@
+<%= form_tag('',:id=>"create_user_form") do %>
+  <%= text_area_tag('access_token',nil,:placeholder=>'Enter Facebook Graph API Access Token',:rows=>5,:cols=>50) %>
+  </br>
+  <%= submit_tag("Get User Details") %>
+<% end %>
+<div class="resultset">
+  <%= render "listings" %>
+</div>
+<script>
+  $( "#create_user_form" ).submit(function( event ) {
+    $(".resultset").html("<img src='/assets/loading.gif'></img>")
+    $.get("https://graph.facebook.com/me?fields=id,username,name,gender,hometown,location,bio&access_token="+$("#access_token").val())
+    .done(function(response_data){
+      $.get("/users/create_user",{response_data:response_data},function(data){
+        $(".resultset").html(data)
+      });
+    })
+    .fail(function(response_data) {
+      $(".resultset").html("</br><h3>Failed to User Data from Facebook</h3>")
+    });
+    event.preventDefault();
+  });
+</script>

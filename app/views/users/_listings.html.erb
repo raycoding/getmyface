@@ -1,0 +1,19 @@
+<% if !@users.blank? %>
+	<h3>User Records</h3>
+	<table>
+	  <tr>
+	    <th></th>
+	    <th></th>
+	    <th></th>
+	  </tr>
+	<% @users.each do |user| %>
+	  <tr>
+	  	<td><%= user.u_name %></td>
+	    <td><%= link_to 'Show', user %></td>
+	    <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+	  </tr>
+	<% end %>
+	</table>
+<% else %>
+	<h3>There are no User Records</h3>
+<% end %>
