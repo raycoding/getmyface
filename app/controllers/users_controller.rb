@@ -23,10 +23,4 @@ class UsersController < ApplicationController
     @users = User.order("created_at DESC").all
     render :partial=>"listings"
   end
-
-  def destroy
-    @user = User.find(params[:id])
-    @user.destroy
-    redirect_to users_url
-  end
 end
